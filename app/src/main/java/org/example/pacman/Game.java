@@ -134,7 +134,7 @@ public class Game {
     //check each of them for a collision with the pacman
     public void doCollisionCheck()
     {
-        
+
     }
 
     public int getPacx()
