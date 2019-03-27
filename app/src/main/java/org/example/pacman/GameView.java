@@ -12,6 +12,7 @@ import android.view.View;
 public class GameView extends View {
 
 	Game game;
+
     int h,w; //used for storing our height and width of the view
 
 	public void setGame(Game game)
@@ -42,6 +43,7 @@ public class GameView extends View {
 	//drawn whenever we update the screen.
 	@Override
 	protected void onDraw(Canvas canvas) {
+
 		//Here we get the height and weight
 		h = canvas.getHeight();
 		w = canvas.getWidth();
@@ -55,6 +57,13 @@ public class GameView extends View {
 		//draw the pacman
 		canvas.drawBitmap(game.getPacBitmap(), game.getPacx(),game.getPacy(), paint);
 		//TODO loop through the list of goldcoins and draw them.
+		for (GoldCoin g: game.getCoins()) {
+			if (g.isTaken() == false){
+				canvas.drawBitmap(game.getCoinbitmap(), g.getGoldx(), g.getGoldy(), paint);
+			}
+		}
+
+
 		super.onDraw(canvas);
 	}
 
