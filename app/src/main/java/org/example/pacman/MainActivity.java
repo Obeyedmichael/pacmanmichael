@@ -146,10 +146,6 @@ public class MainActivity extends AppCompatActivity {
     {
         this.runOnUiThread(enemyMove);
     }
-    private void DiectionTimer()
-    {
-        this.runOnUiThread(DirectionTicker);
-    }
 
     private Runnable Timer_Tick = new Runnable() {
         public void run() {
