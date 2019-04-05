@@ -163,7 +163,7 @@ public class Game {
         pacx = 20;
         pacy = 20;
 
-        running = false;
+        pointsView.setText(context.getResources().getString(R.string.points)+" "+points);
         gameView.invalidate();
     }
 
@@ -246,7 +246,7 @@ public class Game {
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
                 nextlevel();
-                
+
             }
             if (points == 17)
             {
@@ -286,8 +286,8 @@ public class Game {
     public void moveEnemies() {
         for (Enemy enemy : enemies) {
 
-            Random randDirec = new Random(System.currentTimeMillis() - 500);
-            ghostDirection = randDirec.nextInt(4);
+            Random randDirection = new Random(System.currentTimeMillis() - 500);
+            ghostDirection = randDirection.nextInt(4);
 
             switch (getGhostDirection()) {
                 case 0: // UP
