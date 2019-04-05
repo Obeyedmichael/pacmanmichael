@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         enemyTimer = new Timer();
 
         game.running = false; //should the game be running?
-        //We will call the timer 5 times each second
         pacmanTimer.schedule(new TimerTask() {
             @Override
             public void run() {
