@@ -163,6 +163,7 @@ public class Game {
         pacx = 20;
         pacy = 20;
 
+        running = false;
         gameView.invalidate();
     }
 
@@ -245,7 +246,7 @@ public class Game {
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
                 nextlevel();
-                running = false;
+                
             }
             if (points == 17)
             {

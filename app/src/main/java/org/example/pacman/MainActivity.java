@@ -21,11 +21,9 @@ public class MainActivity extends AppCompatActivity {
     Game game;
     //pacman timer
     private Timer pacmanTimer;
-    private Timer timeTimer;
     private Timer enemyTimer;
-    private int counter = 0;
 
-    private int refreshCounter = 7;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -220,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_newGame) {
 
-            counter = 0;
+
             Toast.makeText(this,"New Game clicked",Toast.LENGTH_LONG).show();
             game.newGame();
             game.running = false;
