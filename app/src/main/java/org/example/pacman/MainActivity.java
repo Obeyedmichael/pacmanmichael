@@ -173,15 +173,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private Runnable DirectionTicker = new Runnable() {
-        @Override
-        public void run() {
-            if (game.running)
-            {
-                game.setGhostDirection(game.getGhostDirection());
-            }
-        }
-    };
     private Runnable enemyMove = new Runnable() {
         @Override
         public void run() {

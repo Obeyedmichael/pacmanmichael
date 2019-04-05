@@ -50,6 +50,7 @@ public class Game {
     public boolean running = false;
     public int move;
     public int lvl;
+    private boolean alreadyExecuted = false;
 
 
     public Game(Context context, TextView view)
@@ -137,7 +138,7 @@ public class Game {
             e.setSet(true);
 
         }
-
+        alreadyExecuted = false;
         pacx = 20;
         pacy = 20; //just some starting coordinates
         //reset the points
@@ -159,7 +160,7 @@ public class Game {
             e.setSet(true);
 
         }
-
+        alreadyExecuted = true;
         pacx = 20;
         pacy = 20;
 
@@ -238,14 +239,16 @@ public class Game {
                 points++;
                 pointsView.setText(context.getResources().getString(R.string.points)+" "+points);
             }
-            if (points == 11)
+            if (points == 11 && !alreadyExecuted)
             {
                 CharSequence text = "Next Level\n congratulations";
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
+
                 nextlevel();
+                running = false;
 
             }
             if (points == 17)
