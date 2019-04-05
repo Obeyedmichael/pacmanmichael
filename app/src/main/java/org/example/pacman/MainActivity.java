@@ -19,9 +19,13 @@ public class MainActivity extends AppCompatActivity {
     GameView gameView;
     //reference to the game class.
     Game game;
-
-    private Timer myTimer;
+    //pacman timer
+    private Timer pacmanTimer;
+    private Timer timeTimer;
+    private Timer enemyTimer;
     private int counter = 0;
+
+    private int refreshCounter = 7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +37,28 @@ public class MainActivity extends AppCompatActivity {
         gameView =  findViewById(R.id.gameView);
         TextView textView = findViewById(R.id.points);
         game = new Game(this,textView);
-        myTimer = new Timer();
-        game.running = true; //should the game be running?
+        //timers
+        pacmanTimer = new Timer();
+
+        enemyTimer = new Timer();
+
+        game.running = false; //should the game be running?
         //We will call the timer 5 times each second
-        myTimer.schedule(new TimerTask() {
+        pacmanTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 TimerMethod();
             }
 
-        }, 0, 200);
+        }, 0, 60);
 
+        enemyTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                EnemyMove();
+            }
+
+        }, 0, 20);
 
         game.setGameView(gameView);
         gameView.setGame(game);
@@ -110,11 +125,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onStop() {
         super.onStop();
         //just to make sure if the app is killed, that we stop the timer.
-        myTimer.cancel();
+        pacmanTimer.cancel();
+        enemyTimer.cancel();
     }
 
     private void TimerMethod()
@@ -128,6 +145,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void EnemyMove()
+    {
+        this.runOnUiThread(enemyMove);
+    }
+    private void DiectionTimer()
+    {
+        this.runOnUiThread(DirectionTicker);
+    }
+
     private Runnable Timer_Tick = new Runnable() {
         public void run() {
 
@@ -135,10 +161,6 @@ public class MainActivity extends AppCompatActivity {
             // so we can draw
             if (game.running)
             {
-                counter++;
-                //update the counter - notice this is NOT seconds in this example
-                //you need TWO counters - one for the time and one for the pacman
-
                 switch (game.move)
                 {
                     case 1: if(game.running) {game.movePacmanLeft(20);}
@@ -151,12 +173,31 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                     case 4: if(game.running) {game.movePacmanDown(20);}
+                    break;
                 }
             }
 
         }
     };
 
+    private Runnable DirectionTicker = new Runnable() {
+        @Override
+        public void run() {
+            if (game.running)
+            {
+                game.setGhostDirection(game.getGhostDirection());
+            }
+        }
+    };
+    private Runnable enemyMove = new Runnable() {
+        @Override
+        public void run() {
+            if (game.running) {
+                game.moveEnemies();
+
+            }
+        }
+    };
 
 
 
